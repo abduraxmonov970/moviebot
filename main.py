@@ -64,10 +64,12 @@ async def handler(event):
     approved_users = load_json(APPROVED_USERS_FILE)
     if user_id not in approved_users:
         required_channel = await check_force_join(user_id)
-        if required_channel:
-            await event.respond(f"🔒 botdan foydalanish uchun kanallarga obuna bo'ling:\n{required_channel}", buttons=[Button.url("Join Channel", required_channel)])
-await event.respond(f"🔒 Birinchi kanalga obuna bo'ling:\n{required_channel}", buttons=[Button.url("Join Channel", required_channel)])
-            return
+if required_channel:
+    await event.respond(
+        f"🔒 botdan foydalanish uchun kanallarga obuna bo'ling:\n{required_channel}",
+        buttons=[Button.url("Join Channel", required_channel)]
+    )
+    return  # ✅ correctly indented
         approved_users.append(user_id)
         save_json(APPROVED_USERS_FILE, approved_users)
 
