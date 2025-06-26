@@ -1,3 +1,4 @@
+# updated to fix force join message
 
 from telethon import TelegramClient, events, Button
 import asyncio
