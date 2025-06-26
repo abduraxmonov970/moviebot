@@ -61,15 +61,17 @@ async def handler(event):
     user_id = sender.id
     text = event.raw_text
 
-    approved_users = load_json(APPROVED_USERS_FILE)
-    if user_id not in approved_users:
-        required_channel = await check_force_join(user_id)
-if required_channel:
-    await event.respond(
-        f"🔒 botdan foydalanish uchun kanallarga obuna bo'ling:\n{required_channel}",
-        buttons=[Button.url("Join Channel", required_channel)]
-    )
-    return  # ✅ correctly indented
+approved_users = load_json(APPROVED_USERS_FILE)
+if user_id not in approved_users:
+    required_channel = await check_force_join(user_id)
+    if required_channel:
+        await event.respond(
+            f"🔒 botdan foydalanish uchun kanallarga obuna bo'ling:\n{required_channel}",
+            buttons=[Button.url("Join Channel", required_channel)]
+        )
+        return
+    approved_users.append(user_id)
+    save_json(APPROVED_USERS_FILE, approved_users)
         approved_users.append(user_id)
         save_json(APPROVED_USERS_FILE, approved_users)
 
