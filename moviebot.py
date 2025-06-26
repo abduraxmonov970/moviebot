@@ -58,8 +58,7 @@ client = TelegramClient('bot', api_id, api_hash).start(bot_token=bot_token)
 async def add_start(event):
     if event.sender_id != admin_user_id:
         return
-    await event.reply("📥 Yuboring yoki forward qiling.
-Caption bu kino nomi bo‘lishi kerak.")
+    await event.reply("📥 Yuboring yoki forward qiling.\nCaption bu kino nomi bo‘lishi kerak.")
 
 # === /list ===
 @client.on(events.NewMessage(pattern="/list"))
