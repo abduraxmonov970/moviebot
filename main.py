@@ -62,6 +62,7 @@ async def handler(event):
     text = event.raw_text
 
 approved_users = load_json(APPROVED_USERS_FILE)
+approved_users = load_json(APPROVED_USERS_FILE)
 if user_id not in approved_users:
     required_channel = await check_force_join(user_id)
     if required_channel:
